@@ -1,0 +1,22 @@
+{
+  "name": "api-server",
+  "version": "1.0.0",
+  "description": "Node Api server for the app",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gurvinder26/api-server.git"
+  },
+  "author": "Gurvinder Singh ( gurayasaab@hotmail.com)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Gurvinder26/api-server/issues"
+  },
+  "homepage": "https://github.com/Gurvinder26/api-server#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
