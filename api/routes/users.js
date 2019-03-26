@@ -5,9 +5,23 @@ const User = require('../models/user');
 const mongoose = require('mongoose');
 
 router.get('/', (req, res, next) => {
-    res.status(200).json({
-        message: 'Handling user request to /users'
-    })
+
+    User.find()
+        .select('firstName lastName')
+        .exec()
+        .then((users) => {
+            console.log(users);
+            res.status(200).json({
+                count: users.length,
+                result: users
+            });
+        }).catch((err) => {
+
+            res.status(500).json({
+                err: err
+            });
+        });
+
 });
 
 router.post('/', (req, res, next) => {
@@ -18,7 +32,8 @@ router.post('/', (req, res, next) => {
         lastName: req.body.lastName,
         middleName: req.body.middleName,
         phone: req.body.phone,
-        email: req.body.email
+        email: req.body.email,
+        address: req.body.address
     });
 
     user.save().then(result => {
@@ -38,10 +53,21 @@ router.post('/', (req, res, next) => {
 });
 
 router.get('/:id', (req, res, next) => {
-    const id = req.params.id;
-    res.status(200).json({
-        message: 'person id is ' + id
-    });
+    const email = req.params.id;
+
+    User.find().where('email', email)
+        .select('firstName lastName')
+        .exec()
+        .then((user) => {
+            res.status(200).json({
+                result: user
+            });
+        }).catch((err) => {
+
+            res.status(500).json({
+                err: err
+            });
+        });
 });
 
 module.exports = router;
