@@ -1,5 +1,6 @@
 {
     "env":{
-        "DATABASEPW": "Password1"
+        "DATABASEPW": "Password1",
+        "PORT":"8080"
     }
 }
