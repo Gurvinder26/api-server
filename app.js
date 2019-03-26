@@ -2,8 +2,12 @@ const express = require('express');
 const app = express();
 const logger = require('morgan');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 
 const userRoutes = require('./api/routes/users');
+
+mongoose.connect('mongodb+srv://admin:' + process.env.DATABASEPW + '@database-xtgku.mongodb.net/api-server?retryWrites=true', 
+{useMongoClient: true});
 
 // logger
 app.use(logger('dev'));
@@ -14,9 +18,10 @@ app.use(bodyParser.json());
 
 //headers for the req
 app.use((req, res, next) => {
+    console.log('qdwqwe');
     res.header('Access-Control-Allow-Origin', '*');
     res, header(
-        'Access-Control-Allow-hearders',
+        'Access-Control-Allow-headers',
         'Orgin, X-Requested-With, Content-Type, Accept, Authorization'
     );
 
@@ -25,7 +30,7 @@ app.use((req, res, next) => {
         return res.status(200).json({});
     }
     next();
-})
+});
 
 // Routes to handle requests
 app.use('/users', userRoutes);
