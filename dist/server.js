@@ -1,0 +1,1 @@
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0});var http=require("http"),app_1=require("./app"),port=process.env.PORT||8080,server=http.createServer(app_1.app);server.listen(port),console.log("Server start listening on port: "+port);
