@@ -1,11 +1,11 @@
-
-const User = require('../models/user');
-const mongoose = require('mongoose');
+import { User } from '../models/user';
+import * as mongoose from 'mongoose';
+import { Request, Response, NextFunction } from 'express';
 
 /**
  * gets all the users
  */
-exports.getUser = (req, res, next) => {
+export function getUser(req: Request, res: Response, next: NextFunction) {
 
     User.find()
         .select('firstName lastName')
@@ -22,13 +22,12 @@ exports.getUser = (req, res, next) => {
                 err: err
             });
         });
-
 }
 
 /**
- * get user by email id
+ * gets all the users
  */
-exports.getUserById = (req, res, next) => {
+export function getUserById(req: Request, res: Response, next: NextFunction) {
     const email = req.params.id;
 
     User.find().where('email', email)
@@ -47,15 +46,15 @@ exports.getUserById = (req, res, next) => {
 }
 
 /**
- * register new user
+ * user by email id
  */
-exports.createNewUser = (req, res, next) => {
+export function createNewUser(req: Request, res: Response, next: NextFunction) {
 
     User.find({ email: req.body.email }).exec()
-        .then((user => {
+        .then(user => {
             // checks if there is a user with same email in the database
-            if (user.length >=1) {
-                return res.status(409).json({
+            if (user.length >= 1) {
+                res.status(409).json({
                     message: 'Email Already exists'
                 });
             }
@@ -73,16 +72,16 @@ exports.createNewUser = (req, res, next) => {
 
                 user.save().then(result => {
                     console.log(result);
-                    res.status(201).json({
+                    return res.status(201).json({
                         status: 201,
                         result: result
                     })
                 }).catch((err) => {
                     console.error(err)
-                    res.status(500).json({
+                    return res.status(500).json({
                         err: err
                     })
                 });
             }
-        }));
+        });
 }

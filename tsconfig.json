@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+      "target": "es5",
+      "noEmitOnError": false,
+      "noImplicitReturns": true,
+      "allowJs": true,
+      "module": "commonjs",
+      "lib": [
+          "es5",
+          "es2015.iterable"
+      ]
+  },
+  "include": [
+      "src/**/*"
+  ]
+}

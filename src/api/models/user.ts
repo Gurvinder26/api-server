@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
+import * as mongoose from 'mongoose';
 
-const userSchema = mongoose.Schema({
+const userSchema: mongoose.Schema = new mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
     firstName: { type: String, required: true },
     middleName: { type: String },
@@ -15,4 +15,4 @@ const userSchema = mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model('User', userSchema);
+export const User: mongoose.Model<mongoose.Document> = mongoose.model('User', userSchema);

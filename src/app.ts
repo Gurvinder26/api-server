@@ -1,27 +1,29 @@
-const express = require('express');
-const app = express();
-const logger = require('morgan');
-const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
 
-const userRoutes = require('./api/routes/users');
+import * as express from 'express';
+import * as logger from 'morgan';
+import * as bodyParser from 'body-parser';
+import * as mongoose from 'mongoose';
+import {userRoutes}  from './api/routes/user-routes';
 
+// const userRoutes = router;
+
+export const app: express.Application = express();
 mongoose.connect('mongodb+srv://admin:' + process.env.DATABASEPW + '@database-xtgku.mongodb.net/api-server?retryWrites=true',
     {
         useNewUrlParser: true
     });
 
-mongoose.Promise = global.Promise;
+// mongoose.Promise = global.Promise;
 
 // logger
-app.use(logger('dev'));
+this.app.use(logger('dev'));
 
 // body parser
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+this.app.use(bodyParser.urlencoded({ extended: false }));
+this.app.use(bodyParser.json());
 
 //headers for the req
-app.use((req, res, next) => {
+this.app.use((req, res, next) => {
     console.log('qdwqwe');
     res.header('Access-Control-Allow-Origin', '*');
     res.header(
@@ -37,16 +39,16 @@ app.use((req, res, next) => {
 });
 
 // Routes to handle requests
-app.use('/users', userRoutes);
+this.app.use('/users', userRoutes);
 
 
-app.use((req, res, next) => {
-    const err = new Error('Not found');
+this.app.use((req, res, next) => {
+    const err: any = new Error('Not found');
     err.status = 404;
     next(err);
 })
 
-app.use((err, req, res, next) => {
+this.app.use((err, req, res, next) => {
 
     res.status(err.status || 500);
     res.json({
@@ -54,6 +56,5 @@ app.use((err, req, res, next) => {
             message: err.message
         }
     })
-})
-
-module.exports = app;
+});
+// export default new App().app;
