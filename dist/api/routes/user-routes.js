@@ -1,1 +1,0 @@
-"use strict";Object.defineProperty(exports,"__esModule",{value:!0});var express=require("express"),userController=require("../controllers/user-controller"),router=express.Router();router.get("/",userController.getUser),router.post("/",userController.createNewUser),router.get("/:id",userController.getUserById),exports.userRoutes=router;
