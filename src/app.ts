@@ -3,9 +3,9 @@ import * as express from 'express';
 import * as logger from 'morgan';
 import * as bodyParser from 'body-parser';
 import * as mongoose from 'mongoose';
-import { userRoutes } from './api/routes/user-routes';
 
-// const userRoutes = router;
+import { userRoutes } from './api/routes/user-routes';
+import { carInfoRoutes } from './api/routes/car-info-routes';
 
 export const app: express.Application = express();
 
@@ -47,6 +47,8 @@ this.app.use((req, res, next) => {
 
 // Routes to handle requests
 this.app.use('/users', userRoutes);
+this.app.use('/cars', carInfoRoutes)
+this.app.use('/carsOwned', )
 
 
 this.app.use((req, res, next) => {
