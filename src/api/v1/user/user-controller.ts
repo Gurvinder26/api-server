@@ -1,4 +1,4 @@
-import { User } from '../models/user';
+import { User } from './user-model';
 import * as mongoose from 'mongoose';
 import { Request, Response, NextFunction } from 'express';
 
@@ -27,7 +27,7 @@ export function getUser(req: Request, res: Response, next: NextFunction) {
 /**
  * gets all the users
  */
-export function getUserById(req: Request, res: Response, next: NextFunction) {
+export function getUserByEmailId(req: Request, res: Response, next: NextFunction) {
     const email = req.params.id;
 
     User.find().where('email', email)
