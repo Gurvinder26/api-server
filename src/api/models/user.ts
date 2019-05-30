@@ -5,14 +5,14 @@ const userSchema: mongoose.Schema = new mongoose.Schema({
     firstName: { type: String, required: true },
     middleName: { type: String },
     lastName: { type: String, required: true },
-    address: { type: String, required: true },
     phone: { type: Number, required: true, unique: true },
     email: {
         type: String,
         required: true,
         unique: true,
         match: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
-    }
+    },
+    confirmed: {type: Boolean, required: true, default: false }
 });
 
 export const User: mongoose.Model<mongoose.Document> = mongoose.model('User', userSchema);

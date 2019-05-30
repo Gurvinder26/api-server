@@ -3,14 +3,22 @@ import * as express from 'express';
 import * as logger from 'morgan';
 import * as bodyParser from 'body-parser';
 import * as mongoose from 'mongoose';
-import {userRoutes}  from './api/routes/user-routes';
+import { userRoutes } from './api/routes/user-routes';
 
 // const userRoutes = router;
 
 export const app: express.Application = express();
+
 mongoose.connect('mongodb+srv://admin:' + process.env.DATABASEPW + '@database-xtgku.mongodb.net/api-server?retryWrites=true',
     {
         useNewUrlParser: true
+    }, (error, client?) => {
+        if (error) {
+            console.log('Unable to connect to the database', error);
+        }
+        else {
+            console.log('database connected successfully');
+        }
     });
 
 // mongoose.Promise = global.Promise;
@@ -24,7 +32,6 @@ this.app.use(bodyParser.json());
 
 //headers for the req
 this.app.use((req, res, next) => {
-    console.log('qdwqwe');
     res.header('Access-Control-Allow-Origin', '*');
     res.header(
         'Access-Control-Allow-headers',

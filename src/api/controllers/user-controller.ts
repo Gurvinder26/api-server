@@ -14,7 +14,7 @@ export function getUser(req: Request, res: Response, next: NextFunction) {
             console.log(users);
             res.status(200).json({
                 count: users.length,
-                result: users
+                result: users 
             });
         }).catch((err) => {
 
@@ -67,7 +67,6 @@ export function createNewUser(req: Request, res: Response, next: NextFunction) {
                     middleName: req.body.middleName,
                     phone: req.body.phone,
                     email: req.body.email,
-                    address: req.body.address
                 });
 
                 user.save().then(result => {
