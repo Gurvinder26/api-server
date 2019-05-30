@@ -1,6 +1,6 @@
 import * as express from 'express';
-import * as userController from '../controllers/user-controller';
-import * as carInfoController from '../controllers/car-info-controller';
+import * as userController from './user-controller';
+import * as carInfoController from '../car-info/car-info-controller';
 
 
 const router = express.Router();

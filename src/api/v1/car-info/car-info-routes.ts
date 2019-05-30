@@ -1,5 +1,5 @@
 import * as express from 'express';
-import * as carInfoController from '../controllers/car-info-controller';
+import * as carInfoController from './car-info-controller';
 
 const router = express.Router();
 router.get('/', carInfoController.getAllCars);

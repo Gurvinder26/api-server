@@ -1,7 +1,7 @@
-import { CarInfo } from '../models/car-info';
+import { CarInfo } from './car-info-model';
 import * as mongoose from 'mongoose';
 import { Request, Response, NextFunction } from 'express';
-import { carInfoRoutes } from '../routes/car-info-routes';
+import { carInfoRoutes } from './car-info-routes';
 
 /**
  * gets all the users
@@ -98,5 +98,5 @@ export function addNewCar(req: Request, res: Response, next: NextFunction) {
                 });
             }
         });
-    }
+}
 
