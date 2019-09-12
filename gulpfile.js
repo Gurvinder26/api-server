@@ -18,8 +18,6 @@ gulp.task('build', () => {
 
 
 
-
-
 // //set up a watcher to watch over changes
 // gulp.task('watch', ['scripts'], () => {
 //   gulp.watch('**/*.ts', ['scripts']);
