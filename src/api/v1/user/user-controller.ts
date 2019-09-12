@@ -2,7 +2,7 @@ import { User } from "./user-model";
 import * as mongoose from "mongoose";
 import { Request, Response, NextFunction, Router } from "express";
 import * as jwt from "jsonwebtoken";
-
+import * as bcrypt from "bcrypt";
 
 /**
  * gets all the users
@@ -59,30 +59,39 @@ export function createNewUser(req: Request, res: Response, next: NextFunction) {
         });
       } else {
         // creates a new user
-        const user = new User({
-          _id: new mongoose.Types.ObjectId(),
-          firstName: req.body.firstName,
-          lastName: req.body.lastName,
-          middleName: req.body.middleName,
-          phone: req.body.phone,
-          email: req.body.email
-        });
 
-        user
-          .save()
-          .then(result => {
-            console.log(result);
-            return res.status(201).json({
-              status: 201,
-              result: result
-            });
-          })
-          .catch(err => {
-            console.error(err);
+        bcrypt.hash(req.body.password, 10, (err, hash): any => {
+          if (err) {
             return res.status(500).json({
-              err: err
+              error: err
             });
-          });
+          } else {
+            const user = new User({
+              _id: new mongoose.Types.ObjectId(),
+              firstName: req.body.firstName,
+              lastName: req.body.lastName,
+              middleName: req.body.middleName,
+              phone: req.body.phone,
+              email: req.body.email,
+              password: hash
+            });
+
+            user
+              .save()
+              .then(result => {
+                return res.status(201).json({
+                  status: 201,
+                  result: result
+                });
+              })
+              .catch(err => {
+                console.error(err);
+                return res.status(500).json({
+                  err: err
+                });
+              });
+          }
+        });
       }
     });
 }
@@ -95,24 +104,35 @@ export function loginUser(req: Request, res: Response, next: NextFunction) {
     .where("email", req.body.email)
     .exec()
     .then(user => {
-      if (user[0]) {
-        const token = jwt.sign(
-          {
-            userId: user[0]._id
-          },
-          'process.env.JWT_KEY',
-          {
-            expiresIn: "1h"
+      bcrypt.compare(
+        req.body.password,
+        user[0]["password"],
+        (err, result): any => {
+          if (err) {
+            return res.status(401).json({
+              message: "Invalid Username/Password"
+            });
           }
-        );
-        return res.status(200).json({
-          message: "Auth Successful",
-          token: token
-        });
-      }
-      return res.status(401).json({
-        message: "Invalid Username/Password"
-      });
+          if (result) {
+            const token = jwt.sign(
+              {
+                userId: user[0]._id
+              },
+              "process.env.JWT_KEY",
+              {
+                expiresIn: "1h"
+              }
+            );
+            return res.status(200).json({
+              message: "Auth Successful",
+              token: token
+            });
+          }
+          return res.status(401).json({
+            message: "Invalid Username/Password"
+          });
+        }
+      );
     })
     .catch(err => {
       res.status(500).json({
