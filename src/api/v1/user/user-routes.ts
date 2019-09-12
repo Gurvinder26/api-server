@@ -6,7 +6,7 @@ import * as carInfoController from '../car-info/car-info-controller';
 const router = express.Router();
 router.get('/', userController.getUser);
 router.post('/', userController.createNewUser);
-router.get('/:id', userController.getUserByEmailId);
+router.get('/:id', userController.getUserById);
 router.get('/:id/cars', carInfoController.getCarsByOwnerId )
 
 export const userRoutes =  router;

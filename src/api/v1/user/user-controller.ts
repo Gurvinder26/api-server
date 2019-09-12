@@ -8,13 +8,13 @@ import { Request, Response, NextFunction } from 'express';
 export function getUser(req: Request, res: Response, next: NextFunction) {
 
     User.find()
-        .select('firstName lastName')
+        .select('firstName lastName _id middleName phone email')
         .exec()
         .then((users) => {
             console.log(users);
             res.status(200).json({
                 count: users.length,
-                result: users 
+                result: users
             });
         }).catch((err) => {
 
@@ -27,16 +27,14 @@ export function getUser(req: Request, res: Response, next: NextFunction) {
 /**
  * gets all the users
  */
-export function getUserByEmailId(req: Request, res: Response, next: NextFunction) {
-    const email = req.params.id;
+export function getUserById(req: Request, res: Response, next: NextFunction) {
+    const id = req.params.id;
 
-    User.find().where('email', email)
-        .select('firstName lastName')
+    User.find().where('_id', id)
+        .select('firstName lastName middleName phone email')
         .exec()
         .then((user) => {
-            res.status(200).json({
-                result: user
-            });
+            res.status(200).json(user[0]);
         }).catch((err) => {
 
             res.status(500).json({

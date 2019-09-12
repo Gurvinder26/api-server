@@ -6,6 +6,7 @@ import * as mongoose from 'mongoose';
 
 import { userRoutes } from './api/v1/user/user-routes';
 import { carInfoRoutes } from './api/v1/car-info/car-info-routes';
+import { serviceOptionRoutes } from './api/v1/service-options/service-options-routes';
 
 export const app: express.Application = express();
 
@@ -48,6 +49,7 @@ this.app.use((req, res, next) => {
 // Routes to handle requests
 this.app.use('/users', userRoutes);
 this.app.use('/cars', carInfoRoutes)
+this.app.use('/service-options', serviceOptionRoutes)
 
 
 this.app.use((req, res, next) => {
