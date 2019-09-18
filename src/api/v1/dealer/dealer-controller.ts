@@ -1,21 +1,22 @@
-import { Appointment } from "./appointment-model";
+import { dealerList } from "./dealer-model";
 import * as mongoose from "mongoose";
 import { Request, Response, NextFunction } from "express";
 
 /**
  * gets all the users
  */
-export function getAllAppoinments(
+export function getAllDealers(
   req: Request,
   res: Response,
   next: NextFunction
 ) {
-  Appointment.find()
+  dealerList
+    .find()
     .exec()
-    .then(appointments => {
+    .then(dealers => {
       res.status(200).json({
-        count: appointments.length,
-        result: appointments
+        count: dealers.length,
+        result: dealers
       });
     })
     .catch(err => {
@@ -25,22 +26,23 @@ export function getAllAppoinments(
     });
 }
 
-export function addNewAppointment(
+export function addNewDealer(
   req: Request,
   res: Response,
   next: NextFunction
 ) {
-  // creates a new appointment
-  const appointment = new Appointment({
+  // creates a new dealer
+  const dealer = new dealerList({
     _id: new mongoose.Types.ObjectId(),
-    userId: req.body.userId,
-    carId: req.body.carId,
-    serviceOptions: req.body.serviceOptions,
-    day: req.body.day,
-    dealerId: req.body.dealerId
+    name: req.body.name,
+    province: req.body.province,
+    city: req.body.city,
+    country: req.body.country,
+    phone: req.body.phone,
+    email: req.body.email
   });
 
-  appointment
+  dealer
     .save()
     .then(result => {
       return res.status(201).json({
