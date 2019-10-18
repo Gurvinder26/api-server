@@ -38,6 +38,7 @@ export function addNewDealer(
     province: req.body.province,
     city: req.body.city,
     country: req.body.country,
+    address: req.body.address,
     phone: req.body.phone,
     email: req.body.email
   });
