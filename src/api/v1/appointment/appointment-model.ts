@@ -5,7 +5,8 @@ const appointmentSchema: mongoose.Schema = new mongoose.Schema({
   userId: { type: String, required: true },
   carId: { type: String, required: true },
   serviceOptions: { type: Array, required: true },
-  day: { type: Date, required: true },
+  date: { type: String, required: true },
+  time: { type: String, required: true},
   dealerId: { type: String, required: true }
 });
 
