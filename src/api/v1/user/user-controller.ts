@@ -100,6 +100,7 @@ export function createNewUser(req: Request, res: Response, next: NextFunction) {
  *login user
  */
 export function loginUser(req: Request, res: Response, next: NextFunction) {
+  console.log(req.body.email, req.body.password);
   User.find()
     .where("email", req.body.email)
     .exec()
@@ -125,6 +126,7 @@ export function loginUser(req: Request, res: Response, next: NextFunction) {
             );
             return res.status(200).json({
               message: "Auth Successful",
+              userId: user[0]._id,
               token: token
             });
           }
